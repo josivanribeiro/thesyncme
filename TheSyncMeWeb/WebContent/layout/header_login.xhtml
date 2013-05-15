@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+	<ui:composition>
+		<div id="header">
+			<!-- logo -->
+			<h1 id="logo">
+				<a href="#{request.contextPath}/login.page">
+					<h:graphicImage library="images" name="logo_thesyncme.gif" />
+				</a>
+			</h1>
+			<!-- search -->
+			<!--form method="get" id="searchform" action="#">
+				<label for="s" class="assistive-text">Find people</label>
+				<input type="text" class="field" name="s" id="s" placeholder="Find people" />
+				<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+			</form-->
+			<!-- language box -->			
+			<h:form id="language-form">				
+				<div class="select-language">
+		            <h:selectOneMenu value="#{languageBean.localeCode}" onchange="submitFormById('language-form');" valueChangeListener="#{languageBean.languageValueChanged}">
+	            		<f:selectItems value="#{languageBean.languageMap}" />
+	            		<a4j:ajax event="valueChange" execute="@this" />
+	        		</h:selectOneMenu>
+				</div>
+			</h:form>											
+		</div>
+	</ui:composition>
+</html>

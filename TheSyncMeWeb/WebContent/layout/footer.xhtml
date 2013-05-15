@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+    <ui:composition>	
+		<div id="footer">
+			<div class="wrapper">
+				<p class="copyright">&#169; 2012 - TheSyncMe</p>
+				<p class="right-links">
+		            <h:outputLink value="#{request.contextPath}/about.page"><h:outputText value="#{bundle['footer.about']}" /></h:outputLink> |
+		            <h:outputLink value="#{request.contextPath}/help.page"><h:outputText value="#{bundle['footer.help']}" /></h:outputLink> |
+		            <h:outputLink value="#{request.contextPath}/terms.page"><h:outputText value="#{bundle['footer.terms']}" /></h:outputLink> |
+		            <h:outputLink value="#{request.contextPath}/privacy.page"><h:outputText value="#{bundle['footer.privacy']}" /></h:outputLink>
+				</p>
+			</div>
+			<script>
+				addStyleSheet ("/thesyncme/resources/css/rf.css");
+				addStyleSheet ("/thesyncme/resources/css/style.css");
+			</script>
+		</div>
+	</ui:composition>	
+</html>

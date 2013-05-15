@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+	<ui:composition template="/layout/template_login.xhtml">
+		<ui:define name="body">
+			<!-- col 1 -->
+			<div id="login-page-col1">
+				<!-- signin box -->
+				<div id="signin-box">					
+					<h:form id="signin-form" prependId="false">						
+						<div class="field-container">
+							<rich:inplaceInput id="j_username" value="#{userBean.signinEmail}" defaultLabel="Email">
+								<f:attribute name="message" value="#{bundle['login.signin.validation.email.empty.or.incorrect']}" />
+								<f:validator validatorId="EmailValidator" />
+							</rich:inplaceInput>
+						</div>
+						<rich:message id="signin-email-message" for="j_username" />
+						<div class="password-field-container">
+							<h:inputSecret id="j_password" value="#{userBean.signinPassword}" >
+								<f:attribute name="message" value="#{bundle['login.signin.validation.password.empty']}" />
+								<f:validator validatorId="RequiredValidator" />
+							</h:inputSecret>
+							<h:commandButton id="signin-button" value="#{bundle['login.signin.bt.signin']}" action="#{userBean.signIn}" />
+						</div>
+						<rich:message id="signin-password-message" for="j_password" />
+						<div class="signin-features-container">
+							<h:selectBooleanCheckbox id="remain-logged-checkbox" value="#{userBean.remainLogged}" title="#{bundle['login.signin.remain.logged']}"/> <h:outputText value="#{bundle['login.signin.remain.logged']}"/> | <a4j:commandLink value="#{bundle['login.signin.forgot.password']}" execute="@this" oncomplete="#{rich:component('retrievePasswordPane')}.show()" />
+						</div>
+					</h:form>
+					<!-- retrieve password popup -->
+					<rich:popupPanel id="retrievePasswordPane" header="#{bundle['login.retrieve.password.header']}" domElementAttachment="parent" width="380" height="120">			            
+			            <h:form id="retrieve-password-form">
+				            <div class="field-container">
+								<rich:inplaceInput id="retrieve-password" value="#{userBean.retrievePasswordEmailOrFullName}" defaultLabel="#{bundle['login.retrieve.password.email.or.fullname']}">
+									<f:attribute name="message" value="#{bundle['login.retrieve.password.validation.field.empty']}" />
+									<f:validator validatorId="RequiredValidator" />
+								</rich:inplaceInput>
+								<a4j:commandButton value="#{bundle['login.retrieve.password.bt.retrieve']}" action="#{userBean.retrievePassword}" execute="retrievePasswordPane" oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('retrievePasswordPane')}.hide();}" />
+								<rich:message id="retrieve-password-message" for="retrieve-password" />
+							</div>						
+						</h:form>
+			    	</rich:popupPanel>																		
+				</div>
+				<!-- signup box -->
+				<p class="signup-title"><h:outputText value="#{bundle['login.signup.new.user']}"/> <span class="signup-app-name">TheSyncMe</span>? <h:outputText value="#{bundle['login.signup.new.signup']}"/> </p>
+				<div id="signup-box">					
+					<h:form id="signup-form">
+						<div class="field-container">
+							<rich:select id="signup-accountType" value="#{userBean.signupAccountType}">
+				                <f:selectItems value="#{userBean.accountTypeOptions}" />
+				                <f:attribute name="message" value="#{bundle['login.signup.validation.accountType.empty']}" />
+								<f:validator validatorId="AccountTypeValidator" />
+				            </rich:select>
+						</div>
+						<rich:message id="signup-accountType-message" for="signup-accountType" />
+						<div class="field-container">
+							<rich:inplaceInput id="signup-username" value="#{userBean.signupUsername}" defaultLabel="#{bundle['login.signup.fullname']}" >
+								<f:attribute name="message" value="#{bundle['login.signup.validation.username.empty']}" />
+								<f:validator validatorId="RequiredValidator" />
+							</rich:inplaceInput>	
+						</div>
+						<rich:message id="signup-username-message" for="signup-username" />
+						<div class="field-container">
+							<rich:inplaceInput id="signup-email" value="#{userBean.signupEmail}" defaultLabel="Email">
+								<f:attribute name="message" value="#{bundle['login.signup.validation.email.empty.or.incorrect']}" />
+								<f:validator validatorId="EmailValidator" />
+							</rich:inplaceInput>
+						</div>
+						<rich:message id="signup-email-message" for="signup-email" />
+						<div class="password-field-container">
+							<h:inputSecret id="signup-password" value="#{userBean.signupPassword}">
+								<f:attribute name="message" value="#{bundle['login.signup.validation.password.empty']}" />
+								<f:validator validatorId="RequiredValidator" />
+							</h:inputSecret>
+							<h:commandButton id="signup-button" value="#{bundle['login.signup.bt.signup']}" action="#{userBean.signUp}" />
+						</div>
+						<rich:message id="signup-password-message" for="signup-password" />							
+					</h:form>
+				</div>								
+			</div>
+			<!-- col 2 -->
+			<div id="login-page-col2">			
+				<div id="login-page-intro">
+					<h1>
+						<h:outputText value="#{bundle['login.intro']}"/>
+					</h1>
+				</div>
+				<!-- places intro -->
+				<div id="places-intro">
+					<div id="places-wrapper" class="aligncenter">
+						<!-- place 1 -->
+						<div class="place1">
+							<p class="comment1">
+								<h:outputText value="#{bundle['login.place1.comment']}"/>
+							</p>
+						</div>
+						<!-- place 2 -->
+						<div class="place2">
+							<p class="comment2">
+								<h:outputText value="#{bundle['login.place2.comment']}"/>						
+							</p>
+						</div>
+						<!-- place 3 -->
+						<div class="place3">
+							<p class="comment3">
+								<h:outputText value="#{bundle['login.place3.comment']}"/>																
+							</p>
+						</div>
+					</div>					
+				</div>
+				<script>
+	            	setIdElementsByClassName ("rf-sel-lst-scrl", "listControl", "div");
+	            	setIdElementsByClassName ("rf-sel-shdw", "listShadow", "div");
+	            	setElementWidthById ("listControl0", '267px');
+	            	setElementWidthById ("listShadow0", '269px');
+	            	setDivZIndexById ("retrievePasswordPane_shade", "10000");
+	            	setDivZIndexById ("retrievePasswordPane_container", "10001");
+	            	adjustDivHeight ("signin-box", "99", getAdditionalHeightBasedOnErrorMessages("signin-form", "rf-msg-det"));
+	            	adjustDivHeight ("signup-box", "158", getAdditionalHeightBasedOnErrorMessages("signup-form", "rf-msg-det"));
+	            	adjustDivHeight ("main", "414", getAdditionalHeightBasedOnAllErrorMessages("rf-msg-det"));
+	            </script>
+			</div>
+		</ui:define>
+	</ui:composition>
+</html>

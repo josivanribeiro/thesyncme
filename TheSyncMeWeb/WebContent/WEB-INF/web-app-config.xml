@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xmlns:int-security="http://www.springframework.org/schema/integration/security"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/security http://www.springframework.org/schema/integration/security/spring-integration-security-2.0.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
+						http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+						http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/faces http://www.springframework.org/schema/faces/spring-faces-2.0.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.thesyncme" />
+	
+	<context:annotation-config />
+	
+	<!-- Your application may use the StringDigester in several places,    --> 
+  	<!-- like for example at new user sign-up.                             --> 
+  	<bean id="jasyptStringDigester" class="org.jasypt.digest.StandardStringDigester">
+    	<property name="algorithm" value="SHA-1" />
+    	<property name="iterations" value="50000" />
+  	</bean>  
+  
+  	<!-- This Spring Security-friendly PasswordEncoder implementation will -->
+  	<!-- wrap the StringDigester instance so that it can be used from      -->
+  	<!-- the security framework.                                           -->
+  	<bean id="passwordEncoder" class="org.jasypt.springsecurity3.authentication.encoding.PasswordEncoder">
+    	<property name="stringDigester" ref="jasyptStringDigester"/>      		
+  	</bean>
+  
+  	<!-- DAO beans -->
+	<bean id="companyDAO" class="com.thesyncme.dao.impl.CompanyDAOImpl" scope="singleton" />
+	<bean id="educationDAO" class="com.thesyncme.dao.impl.EducationDAOImpl" scope="singleton" />
+	<bean id="languageDAO" class="com.thesyncme.dao.impl.LanguageDAOImpl" scope="singleton" />
+	<bean id="locationDAO" class="com.thesyncme.dao.impl.LocationDAOImpl" scope="singleton" />
+	<bean id="positionDAO" class="com.thesyncme.dao.impl.PositionDAOImpl" scope="singleton" />
+	<bean id="roleDAO" class="com.thesyncme.dao.impl.RoleDAOImpl" scope="singleton" />	
+	<bean id="placeDAO" class="com.thesyncme.dao.impl.PlaceDAOImpl" scope="singleton">
+		<property name="passwordEncoder" ref="passwordEncoder" />
+	</bean>
+	<bean id="userDAO" class="com.thesyncme.dao.impl.UserDAOImpl" scope="singleton">
+		<property name="passwordEncoder" ref="passwordEncoder" />
+	</bean>
+	
+	<!-- Business services beans -->
+	<bean id="companyService" class="com.thesyncme.business.services.impl.CompanyServiceImpl" scope="singleton">
+		<property name="companyDAO" ref="companyDAO" />
+	</bean>
+	<bean id="customUserDetailsService" class="com.thesyncme.business.services.impl.CustomUserDetailsServiceImpl" scope="singleton">
+		<property name="userDAO" ref="userDAO" />
+		<property name="placeDAO" ref="placeDAO" />
+	</bean>
+	<bean id="educationService" class="com.thesyncme.business.services.impl.EducationServiceImpl" scope="singleton">
+		<property name="educationDAO" ref="educationDAO" />
+	</bean>
+	<bean id="emailService" class="com.thesyncme.business.services.impl.EmailServiceImpl" scope="singleton" />
+	<bean id="languageService" class="com.thesyncme.business.services.impl.LanguageServiceImpl" scope="singleton">
+		<property name="languageDAO" ref="languageDAO" />
+	</bean>
+	<bean id="locationService" class="com.thesyncme.business.services.impl.LocationServiceImpl" scope="singleton">
+		<property name="locationDAO" ref="locationDAO" />
+	</bean>
+	<bean id="positionService" class="com.thesyncme.business.services.impl.PositionServiceImpl" scope="singleton">
+		<property name="positionDAO" ref="positionDAO" />
+	</bean>
+	<bean id="placeService" class="com.thesyncme.business.services.impl.PlaceServiceImpl" scope="singleton">
+		<property name="placeDAO" ref="placeDAO" />
+	</bean>
+	<bean id="userService" class="com.thesyncme.business.services.impl.UserServiceImpl" scope="singleton">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	
+	<!-- Presentation beans -->
+	<bean id="userBean" class="com.thesyncme.presentation.UserBean" scope="request">
+		<property name="userService" ref="userService" />
+		<property name="placeService" ref="placeService" />
+		<property name="emailService" ref="emailService" />
+	</bean>
+	<bean id="userPlacesBean" class="com.thesyncme.presentation.UserPlacesBean" scope="request">
+		<property name="locationService" ref="locationService" />
+		<property name="educationService" ref="educationService" />
+		<property name="companyService" ref="companyService" />
+		<property name="positionService" ref="positionService" />
+		<property name="languageService" ref="languageService" />
+	</bean>
+	
+	<!-- 
+	resource security 
+	
+	Note: 
+	Access-denied-page is invoked when user is AUTHENTICATED but is not AUTHORIZED to access protected resources.
+	When user is NOT AUTHENTICATED, he is moved into form-login instead of access-denied-page.
+	-->
+	<sec:http auto-config="false">
+		<sec:form-login 
+    		login-processing-url="/j_spring_security_check"
+			login-page="/login.page"
+			default-target-url="/"
+			authentication-failure-url="/login.page" />
+		<sec:session-management>
+        	<sec:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+    	</sec:session-management>
+	</sec:http>
+	
+	<bean id="securityContextFilter" class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
+    	<property name="securityContextRepository" ref="securityContextRepository" />
+	</bean>
+ 
+	<bean id="securityContextRepository" class="org.springframework.security.web.context.HttpSessionSecurityContextRepository" />
+	
+	<alias name="filterChainProxy" alias="springSecurityFilterChain" />
+ 
+	<bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
+    	<sec:filter-chain-map path-type="ant">
+        	<sec:filter-chain pattern="/javax.faces.resource/**" filters="none" />
+        	<sec:filter-chain pattern="/rfRes/**" filters="none" />
+        	<sec:filter-chain pattern="/resources/**" filters="none" />
+        	<sec:filter-chain pattern="/**" filters="securityContextFilter, logoutFilter, loginFilter, requestCacheFilter,
+                 servletApiFilter, anonFilter, sessionMgmtFilter, exceptionTranslator, filterSecurityInterceptor" />
+    	</sec:filter-chain-map>
+	</bean>
+	
+	<bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+    	<constructor-arg value="/login.page" />
+    	<constructor-arg>
+        	<list>
+        		<bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+        	</list>
+    	</constructor-arg>
+    	<property name="filterProcessesUrl" value="/logout.page" />
+	</bean>
+	 
+	<bean id="loginFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+    	<property name="authenticationManager" ref="authenticationManager" />
+    	<property name="authenticationSuccessHandler">
+        	<bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+            	<property name="defaultTargetUrl" value="/" />
+        	</bean>
+    	</property>
+    	<property name="sessionAuthenticationStrategy">
+        	<bean class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
+    	</property>    	
+	</bean>
+	
+	<bean id="requestCacheFilter" class="org.springframework.security.web.savedrequest.RequestCacheAwareFilter" />
+ 
+	<bean id="servletApiFilter" class="org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter" />
+ 
+	<bean id="anonFilter" class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
+    	<property name="key" value="SomeUniqueKeyForThisApplication" />
+    	<property name="userAttribute" value="anonymousUser, ROLE_ANONYMOUS" />
+	</bean>
+	
+	<bean id="sessionMgmtFilter" class="org.springframework.security.web.session.SessionManagementFilter">
+    	<constructor-arg ref="securityContextRepository" />
+	</bean>
+ 
+	<bean id="exceptionTranslator" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+    	<property name="authenticationEntryPoint">
+        	<bean class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+            	<property name="loginFormUrl" value="/login.page"/>
+        	</bean>
+    	</property>
+	</bean>
+	
+	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+    	<property name="decisionVoters">
+        	<list>
+            	<bean class="org.springframework.security.access.vote.RoleVoter"/>
+            	<bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+        	</list>
+    	</property>
+	</bean>
+ 
+	<bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+	    <property name="securityMetadataSource">
+	        <sec:filter-security-metadata-source>
+	            <sec:intercept-url pattern="/login.page*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+    			<sec:intercept-url pattern="/**" access="ROLE_USER, ROLE_ADMIN" />
+	        </sec:filter-security-metadata-source>
+	    </property>
+	    <property name="authenticationManager" ref="authenticationManager" />
+	    <property name="accessDecisionManager" ref="accessDecisionManager" />
+	</bean>
+
+	<!-- 
+	business logic (method) security 
+	-->
+	<sec:global-method-security secured-annotations="enabled" jsr250-annotations="enabled" />
+		
+	<!-- 
+	manager responsible for loading user account with assigned roles 
+	-->
+	<sec:authentication-manager alias="authenticationManager">
+		<sec:authentication-provider user-service-ref="customUserDetailsService">
+			<sec:password-encoder ref="passwordEncoder"/>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+</beans>

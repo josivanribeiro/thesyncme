@@ -1,0 +1,71 @@
+// Location
+
+put 'Location', '1', 'Location:locationId', '1'
+put 'Location', '1', 'Location:cityName', 'Curitiba'
+put 'Location', '1', 'Location:stateName', 'Paraná'
+put 'Location', '1', 'Location:countryName', 'Brasil'
+
+put 'Location', '2', 'Location:locationId', '2'
+put 'Location', '2', 'Location:cityName', 'Macapá'
+put 'Location', '2', 'Location:stateName', 'Amapá'
+put 'Location', '2', 'Location:countryName', 'Brasil'
+
+// Education
+
+put 'Education', '1', 'College:educationId', '1'
+put 'Education', '1', 'College:institutionName', 'PUCPR'
+
+put 'Education', '2', 'School:educationId', '2'
+put 'Education', '2', 'School:institutionName', 'COC'
+
+// Company
+
+put 'Company', '1', 'Company:companyId', '1'
+put 'Company', '1', 'Company:name', 'Google'
+
+put 'Company', '2', 'Company:companyId', '2'
+put 'Company', '2', 'Company:name', 'IBM'
+
+put 'Company', '3', 'Company:companyId', '3'
+put 'Company', '3', 'Company:name', 'Amazon'
+
+put 'Company', '4', 'Company:companyId', '4'
+put 'Company', '4', 'Company:name', 'Facebook'
+
+put 'Company', '5', 'Company:companyId', '5'
+put 'Company', '5', 'Company:name', 'TheSyncMe'
+
+// Position
+
+put 'Position', '1', 'Position:positionId', '1'
+put 'Position', '1', 'Position:name', 'Sr. Software Engineer'
+
+put 'Position', '2', 'Position:positionId', '2'
+put 'Position', '2', 'Position:name', 'Sr. Systems Analyst'
+
+put 'Position', '3', 'Position:positionId', '3'
+put 'Position', '3', 'Position:name', 'Systems Analyst'
+
+put 'Position', '4', 'Position:positionId', '4'
+put 'Position', '4', 'Position:name', 'SOA Architect'
+
+// Language
+
+put 'Language', '1', 'Language:languageId', '1'
+put 'Language', '1', 'Language:name', 'English'
+
+put 'Language', '2', 'Language:languageId', '2'
+put 'Language', '2', 'Language:name', 'Portuguese'
+
+// Role
+
+put 'Role', '1', 'Role:roleId', '1'
+put 'Role', '1', 'Role:name', 'ROLE_ADMIN'
+
+put 'Role', '2', 'Role:roleId', '2'
+put 'Role', '2', 'Role:name', 'ROLE_USER'
+
+
+
+
+

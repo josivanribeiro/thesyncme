@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+	<ui:composition>
+		<div id="header">
+			<!-- logo -->
+			<h1 id="logo">
+				<a href="#{request.contextPath}/login.page">
+					<h:graphicImage library="images" name="logo_thesyncme.gif" />
+				</a>
+			</h1>			
+			<div id="header-features">
+				<!-- search people -->
+				<div id="search-people">
+					<h:form id="search-people-form">
+		        		<rich:autocomplete value="#{bundle['header.find.people']}" mode="cachedAjax" tokens=", " minChars="1" autofill="false" autocompleteMethod="#{headerBean.autoComplete}" />
+		    		</h:form>
+    			</div>
+    			<!-- account bar -->    			
+    			<div id="account-bar">
+					<h:form id="account-bar-form">
+						<ul>
+							<li>
+								<a href="#">
+									<span>
+										Josivan Ribeiro
+										<em><h:graphicImage library="images" name="icon_down_arrow.png" /></em>
+									</span>
+								</a>
+								<ul>
+									<li><a href="#">Settings</a></li>
+									<li><a href="logout.page">Logout</a></li>
+								</ul>
+							</li>
+						</ul>
+					</h:form>
+				</div>
+			</div>	
+		</div>
+	</ui:composition>
+</html>

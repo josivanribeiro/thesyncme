@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+    <application>    
+    	<resource-bundle>
+        	<base-name>com.thesyncme.bundle.messages</base-name>
+        	<var>bundle</var>
+        </resource-bundle>
+         <locale-config>
+	        <default-locale>en</default-locale>
+	        <supported-locale>en</supported-locale>
+	     	<supported-locale>pt_BR</supported-locale>
+         </locale-config>
+         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+  	</application>
+  	
+  	<validator>
+    	<validator-id>RequiredValidator</validator-id>
+    	<validator-class>com.thesyncme.jsf.validator.RequiredValidator</validator-class>
+  	</validator>
+  	
+  	<validator>
+    	<validator-id>EmailValidator</validator-id>
+    	<validator-class>com.thesyncme.jsf.validator.EmailValidator</validator-class>
+  	</validator>
+  	
+  	<validator>
+    	<validator-id>AccountTypeValidator</validator-id>
+    	<validator-class>com.thesyncme.jsf.validator.AccountTypeValidator</validator-class>
+  	</validator>
+  	
+  	<converter>
+		<converter-id>CustomDateTimeConverter</converter-id>
+		<converter-class>com.thesyncme.jsf.converter.CustomDateTimeConverter</converter-class>
+	</converter>
+        
+    <managed-bean>
+       <managed-bean-name>languageBean</managed-bean-name>
+       <managed-bean-class>com.thesyncme.presentation.LanguageBean</managed-bean-class>
+       <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+       <managed-bean-name>headerBean</managed-bean-name>
+       <managed-bean-class>com.thesyncme.presentation.HeaderBean</managed-bean-class>
+       <managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+    	<managed-bean-name>userBean</managed-bean-name>
+    	<managed-bean-class>com.thesyncme.presentation.UserBean</managed-bean-class>
+    	<managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+    	<managed-bean-name>userPlacesBean</managed-bean-name>
+    	<managed-bean-class>com.thesyncme.presentation.UserPlacesBean</managed-bean-class>
+    	<managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+    	<managed-bean-name>userFriendsBean</managed-bean-name>
+    	<managed-bean-class>com.thesyncme.presentation.UserFriendsBean</managed-bean-class>
+    	<managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+</faces-config>

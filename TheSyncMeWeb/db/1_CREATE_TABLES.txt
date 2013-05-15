@@ -1,0 +1,11 @@
+create 'Location', 'Location'
+create 'Education', 'School', 'College'
+create 'Company', 'Company'
+create 'Position', 'Position'
+create 'Language', 'Language'
+create 'Role', 'Role'
+create 'User', 'role_roleId', 'info', 'company_companyId', 'location_locationId', 'education_educationId', 'position_positionId', 'language_languageId', 'recommendation_placeId', 'comment_placeId', 'comment_text', 'notification_typeId', 'friendRequest_userId'
+create 'Place', 'role_roleId', 'info', 'location_locationId', 'address_addressId', 'recommendation_userId', 'comment_userId', 'notification_typeId', 'notification_userId', 'fanRequest_userId' 
+
+ 
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+    <ui:composition>
+		<div id="photos-box" class="rounded-box">
+			<h:outputText value="#{bundle['photos.box.title']} (32)" styleClass="box-title" />
+			<h:form id="photos-form">
+				<div class="photos-box-photo-zoom">
+					<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+	                	<h:graphicImage library="images" name="icon_photo_zoom.png" />
+	                </h:commandLink>
+				</div>
+           		<div id="photos-frame-current-photo">
+           			<div class="photos-frame-header">
+           				<h:outputText value="Album" styleClass="photos-frame-header-album-label" /><h:outputText value="test" styleClass="photos-frame-header-album-name" />
+          				<h:outputText value="1 of 1" styleClass="photos-frame-page-number" />
+           			</div>
+           			<div class="photos-frame-footer">
+           				<div class="photos-frame-icon-left-navigation">
+           					<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+                     			<h:graphicImage library="images" name="icon_left_photos_navigation.png" />
+                     		</h:commandLink>
+           				</div>
+           				<div class="photos-frame-legend">
+           					<h:outputText value="Photo legend text sample." />
+           				</div>
+           				<div class="photos-frame-icon-right-navigation">
+           					<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+                     			<h:graphicImage library="images" name="icon_right_photos_navigation.png" />
+                     		</h:commandLink>
+           				</div>
+           			</div>
+           		</div>
+	    	</h:form>
+		</div>
+	</ui:composition>
+</html>				

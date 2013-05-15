@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+    <ui:composition>		
+		<div id="activities-box" class="rounded-box">
+			<h:form id="activities-form">
+				<div id="activities-title-bar">
+					<ul>
+						<li>
+							<a href="#">
+								<span>
+									<h:outputText value="#{bundle['activities.box.title']}" />
+									<em><h:graphicImage library="images" name="icon_down_arrow.png" /></em>
+								</span>
+							</a>
+							<ul>
+								<li><a href="#"><h:outputText value="#{bundle['activities.box.latest.activities']}" /></a></li>
+								<li><a href="#"><h:outputText value="#{bundle['activities.box.oldest.activities']}" /></a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<a4j:repeat value="#{userPlacesBean.user.activityList}" var="activity" id="activity-list-repeat">
+                	<h:panelGroup id="non-advertisement-group-panel" rendered="#{(activity.activityType.description != 'advertisement' and activity.activityType.description != 'photo')}">
+                    	<div class="simple-activity-item">
+                        	<h:outputText value="#{activity.creationDate}" styleClass="activity-item-creation">
+				        		<f:converter converterId="CustomDateTimeConverter" />
+				        	</h:outputText>
+		        			<h:outputText value="|" styleClass="activity-item-separator" />
+						    <h:commandLink value="" action="#{userFriendsBean.doSomething}">
+						    	<h:outputText value="#{activity.fromUser.username}" styleClass="activity-item-user" />
+						    </h:commandLink>
+		        			<h:outputText value="#{activity.activityType.description}" styleClass="activity-item-description" />
+						    <h:commandLink value="" action="#{userFriendsBean.doSomething}" rendered="#{activity.toUser.username!=null}">
+						    	<h:outputText value="#{activity.toUser.username}" styleClass="activity-item-user" rendered="#{activity.toUser.username!=null}" />
+						    </h:commandLink>
+		        			<h:outputText value="." styleClass="activity-item-dot" />
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup id="advertisement-group-panel" rendered="#{activity.activityType.description == 'advertisement'}">
+                    	<div class="complex-activity-item">
+                        	<h:graphicImage value="#{activity.fromUser.reducedProfileImagePath}" styleClass="activity-item-reduced-profile-img" />
+                            <div class="activity-item-username">
+                            	<div class="activity-item-username-link">
+                            		<h:commandLink value="#{activity.fromUser.username}" action="#{userFriendsBean.doSomething}" />
+                            	</div>
+                            	<div>
+                            		<h:outputText value="#{activity.creationDate}" styleClass="activity-item-creation">
+			        					<f:converter converterId="CustomDateTimeConverter" />
+			        				</h:outputText>
+                            	</div>
+                            </div>
+                            <div class="activity-item-advertisement">
+                           		<h:outputText value="#{activity.advertisement.message}" />
+                           		<div class="activity-item-icon-enjoy">
+                           			<h:commandLink value="" action="#{userFriendsBean.doSomething}" >
+                           				<h:graphicImage library="images" name="icon_enjoy.png" />
+                           			</h:commandLink>	
+                           		</div>
+                           	</div>
+                           	<div class="activity-item-advertisement-users-who-enjoyed">
+                           		<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+                           			<h:outputText value="#{activity.userWhoEnjoyedList[0].username}" />
+                           		</h:commandLink>
+                           		<h:outputText value=" and " styleClass="gray-text" />
+                           		<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+                           			<h:outputText value="#{fn:length(activity.userWhoEnjoyedList)-1}" />
+                           			<h:outputText value=" other people" />
+                           		</h:commandLink>
+                           		<h:outputText value=" enjoyed." styleClass="gray-text" />
+                           	</div>
+                       	</div>           	
+                    </h:panelGroup>
+                         	
+                    <h:panelGroup id="photo-group-panel" rendered="#{activity.activityType.description == 'photo'}">
+                    	<div class="complex-activity-item">
+                       		<h:graphicImage value="#{activity.fromUser.reducedProfileImagePath}" styleClass="activity-item-reduced-profile-img" />
+                           	<div class="activity-item-username">
+                           		<div class="activity-item-username-link">
+                           			<h:commandLink value="#{activity.fromUser.username}" action="#{userFriendsBean.doSomething}" />
+                           		</div>
+                           		<div>
+	                           		<h:outputText value="#{activity.creationDate}" styleClass="activity-item-creation">
+			        					<f:converter converterId="CustomDateTimeConverter" />
+			        				</h:outputText>
+                           		</div>
+                           	</div>
+                           <div class="activity-item-photo">
+                          		<a4j:repeat value="#{activity.photoList}" var="photo" rows="3" id="activity-photo-list-repeat">
+                          			<h:graphicImage value="#{photo.filePath}" alt="#{photo.name}" />
+                          		</a4j:repeat>
+                          		<div class="activity-item-icon-enjoy" style="margin-top: 30px;">
+                          			<h:commandLink value="" action="#{userFriendsBean.doSomething}" >
+                          				<h:graphicImage library="images" name="icon_enjoy.png" />
+                          			</h:commandLink>
+                          		</div>
+                          	</div>
+                          	<div class="activity-item-advertisement-users-who-enjoyed">
+                          		<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+                          			<h:outputText value="#{activity.userWhoEnjoyedList[0].username}" />
+                          		</h:commandLink>
+                          		<h:outputText value=" and " styleClass="gray-text" />
+                          		<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+                          			<h:outputText value="#{fn:length(activity.userWhoEnjoyedList)-1}" />
+                          			<h:outputText value=" other people" />
+                          		</h:commandLink>
+                          		<h:outputText value=" enjoyed." styleClass="gray-text" />
+                          	</div>
+                      	</div>           	
+               		</h:panelGroup>
+            	</a4j:repeat>
+            	<div id="navigation-bar-container">
+            		<div class="navigation-bar">
+	                	<h:outputText value="1 of 1" style="float: left;" />
+	                	<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+	                		<h:graphicImage library="images" name="icon_left_navigation.png" />
+	                	</h:commandLink>
+	                	<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+	                		<h:graphicImage library="images" name="icon_right_navigation.png" />
+	                	</h:commandLink>
+                	</div>
+            	</div>
+			</h:form>
+		</div>
+	</ui:composition>
+</html>

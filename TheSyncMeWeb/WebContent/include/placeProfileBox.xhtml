@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+    <ui:composition>
+		<div id="place-profile-box" class="rounded-box">
+			<div id="profile-box-row1">
+				<h:form id="profile-box-row1-form">
+					<div id="user-info">
+						<div class="user-info-icon">									
+							<a4j:commandLink value="" execute="@this" oncomplete="#{rich:component('update-profile-info-pane')}.show()" >
+								<h:graphicImage library="images" name="icon_info.gif" />
+							</a4j:commandLink>												                        
+						</div>
+						<div class="user-info-username"><h:outputText value="#{userPlacesBean.user.username}" /></div>
+						<div class="user-info-item">
+							<h:outputText value="#{bundle['profile.box.place.info.located.at']}" styleClass="user-info-item-label" />
+							<h:outputText value="#{userPlacesBean.user.company.name}" styleClass="user-info-item-value" />
+						</div>
+						<div class="user-info-item">
+							<h:outputText value="#{bundle['profile.box.place.info.at']}" styleClass="user-info-item-label" />
+							<h:outputText value="#{userPlacesBean.user.location.cityName}" styleClass="user-info-item-value" />
+						</div>
+						<div class="user-info-item">
+							<h:outputText value="#{bundle['profile.box.place.info.district']}" styleClass="user-info-item-label" />
+							<h:outputText value="#{userPlacesBean.user.location.cityName}" styleClass="user-info-item-value" />
+						</div>
+						<div class="user-info-item">
+							<h:outputText value="#{bundle['profile.box.place.info.phone']}" styleClass="user-info-item-label" />
+							<a4j:repeat value="#{userPlacesBean.user.languageList}" var="language" rows="2" id="user-language-list-repeat">
+		                        <h:panelGroup>
+		                        	<h:outputText value="#{language.name}" styleClass="user-info-item-value" />
+		                        	<h:outputText value=" " styleClass="user-info-item-value" />
+		                        </h:panelGroup>
+                			</a4j:repeat>
+						</div>
+						<div class="user-info-item">
+							<h:outputText value="#{bundle['profile.box.place.info.website']}" styleClass="user-info-item-label" />
+							<h:outputText value="#{userPlacesBean.user.currentPlace.username}" styleClass="user-info-item-value" />
+						</div>
+					</div>										
+					<div id="place-photo">
+						<div class="place-current-photo" />
+					</div>
+				</h:form>
+			</div>
+			<div id="profile-box-row2">
+				<h:form id="profile-box-row2-form">
+					<div id="user-update-info">
+						<h:inputTextarea maxlength="100" cols="10" rows="3" value="#{bundle['profile.box.textarea.what.happens']}" />				                   
+					</div>
+					<div id="user-info-features">
+						<div class="user-info-features-bar">
+							<div>
+								<h:graphicImage library="images" name="icon_recommend.gif" /><h:outputText value="#{userPlacesBean.user.numberRecommendations}" styleClass="user-info-features-bar-count" />
+							</div>
+							<div>
+								<h:graphicImage library="images" name="icon_comment.gif" style="margin-left:10px;" /><h:outputText value="#{userPlacesBean.user.numberComments}" styleClass="user-info-features-bar-count" />
+							</div>
+							<div>
+								<h:graphicImage library="images" name="icon_photo.gif" style="margin-left:12px;" /><h:outputText value="#{userPlacesBean.user.numberPhotos}" styleClass="user-info-features-bar-count" />
+							</div>
+						</div>
+						<div id="perspective-bar">
+							<ul>
+								<li>
+									<a href="#">
+										<span>
+											<h:outputText value="#{bundle['profile.box.bt.places.perspective']}" />
+											<em><h:graphicImage library="images" name="icon_down_arrow.png" /></em>
+										</span>
+									</a>
+									<ul>
+										<li><a href="#"><h:outputText value="#{bundle['profile.box.bt.offers.perspective']}" /></a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div id="user-info-actions-and-notifications">
+						<div class="user-info-action-buttons">
+							<h:commandButton id="user-info-update-button" value="#{bundle['profile.box.bt.update']}" action="#{userFriendsBean.doSomething}" />
+							<h:commandLink value="" action="#{userFriendsBean.doSomething}" class="user-info-icon-upload-photo">
+	                        	<h:graphicImage library="images" name="icon_upload_photo.png" />
+	                        </h:commandLink>
+	                        <a4j:commandLink value="" execute="@this" oncomplete="#{rich:component('update-profile-background-image-pane')}.show()" styleClass="user-info-icon-background-profile">
+	                        	<h:graphicImage library="images" name="icon_background_profile.gif" />
+	                        </a4j:commandLink>
+						</div>
+						<div class="user-info-features-notification-bar">
+							<div>
+								<h:graphicImage library="images" name="icon_notification.png" /><h:outputText value="#{userPlacesBean.user.numberNotifications}" styleClass="user-info-features-notification-bar-count" />
+							</div>
+							<div>
+								<h:graphicImage library="images" name="icon_friend_request.png" /><h:outputText value="#{userPlacesBean.user.numberFriendRequests}" styleClass="user-info-features-notification-bar-count" />
+							</div>
+						</div>
+					</div>
+				</h:form>
+			</div>					
+		</div>										
+		<!-- update profile info popup -->
+		<rich:popupPanel id="update-profile-info-pane" header="#{bundle['profile.info.popup.header']}" domElementAttachment="parent" width="272" height="502">
+            <h:form id="update-profile-info-form">
+	            <div class="field-container">
+	            	<rich:autocomplete value="#{bundle['profile.info.popup.city']}" mode="cachedAjax" minChars="1" autofill="true" selectFirst="true" autocompleteMethod="#{userPlacesBean.autoCompleteCityName}" />
+				</div>
+				<div class="field-container">
+	            	<rich:autocomplete value="#{bundle['profile.info.popup.street']}" tokens=", " mode="cachedAjax" minChars="1" autofill="true" selectFirst="true" autocompleteMethod="#{userPlacesBean.autoCompleteInstitutionName}" />
+				</div>
+				<div class="field-container">
+	            	<rich:autocomplete value="#{bundle['profile.info.popup.district']}" mode="cachedAjax" minChars="1" autofill="true" selectFirst="true" autocompleteMethod="#{userPlacesBean.autoCompleteCompanyName}" />
+				</div>						
+				<div class="field-container">
+	            	<rich:autocomplete value="#{bundle['profile.info.popup.phones']}" mode="cachedAjax" minChars="1" autofill="true" selectFirst="true" autocompleteMethod="#{userPlacesBean.autoCompletePositionName}" />
+				</div>
+				<div class="field-container">
+	            	<rich:autocomplete value="#{bundle['profile.info.popup.website']}" mode="cachedAjax" minChars="1" autofill="true" selectFirst="true" autocompleteMethod="#{userPlacesBean.autoCompletePositionName}" />
+				</div>
+				<div class="image-container">
+					<h:outputText value="#{bundle['profile.info.popup.profile.photo']}" styleClass="image-container-label" />
+					<h:commandButton value="Upload" action="#{userPlacesBean.doSomething}" style="float: right;" />
+					<div class="image-container-uploaded-file">
+						<h:graphicImage library="images" name="place_current_photo_profile.jpg" />
+					</div>
+				</div>
+				<div class="button-container">
+					<h:commandButton value="#{bundle['profile.info.popup.bt.update']}" action="#{userFriendsBean.doSomething}" style="float:left;" />
+				</div>
+			</h:form>
+    	</rich:popupPanel>
+    	<!-- update user info popup -->
+    	<!-- update place profile background image popup -->
+		<rich:popupPanel id="update-profile-background-image-pane" header="#{bundle['profile.background.image.popup.header']}" domElementAttachment="parent" width="272" height="302">
+            <h:form id="update-profile-background-image-form" styleClass="rounded-box-form">
+	            <div class="image-container">
+					<h:outputText value="#{bundle['profile.background.image.popup.background.image']}" styleClass="image-container-label" />
+					<h:commandButton value="Upload" action="#{userPlacesBean.doSomething}" style="float: right;" />
+					<div class="image-container-uploaded-file">
+						<h:graphicImage library="images" name="bg_place_profile.jpg" height="134px" width="230px" />
+					</div>
+				</div>
+				<div class="button-container">
+					<h:commandButton value="#{bundle['profile.background.image.popup.bt.update']}" action="#{userPlacesBean.doSomething}" style="float:left;" />
+				</div>
+			</h:form>
+    	</rich:popupPanel>
+		<!-- update place profile background image popup -->
+	</ui:composition>	
+</html>				

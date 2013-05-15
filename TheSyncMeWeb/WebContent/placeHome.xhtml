@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions">	  
+	<ui:composition template="/layout/template.xhtml">
+		<ui:define name="body">
+			<!-- user-home-row1 -->
+			<div id="user-home-row1">
+				<!-- photos box include -->
+				<ui:include src="/include/photosBox.xhtml" />
+				<!-- photos box include -->
+				<!-- fans -->
+				<div id="fans-box" class="rounded-box">
+					<h:outputText value="#{bundle['fans.box.title']} (25)" styleClass="box-title" />
+					<h:form id="friends-form" styleClass="rounded-box-form">
+						<a4j:repeat value="#{userFriendsBean.friendList}" var="friend" rows="4" id="repeat">
+		                    <rich:panel style="float:left;">
+		                        <h:panelGroup>
+		                        	<h:commandLink value="" action="#{userFriendsBean.doSomething}" >
+		                        		<h:graphicImage value="#{friend.profileImagePath}" styleClass="user-img" />
+		                        	</h:commandLink>
+		                            <div class="user-item">
+		                            	<div class="user-item-link"><h:commandLink value="#{friend.username}" action="#{userFriendsBean.doSomething}" /></div>
+		                            	<div class="user-item-current-place">
+		                            		<h:outputText value="#{bundle['friends.box.is.in']}" style="margin-right: 3px" /><h:outputText value="#{friend.currentPlace.username}" />		
+		                            	</div>
+		                            </div>                            
+		                        </h:panelGroup>
+		                    </rich:panel>
+		                </a4j:repeat>
+		                <div class="navigation-bar">
+		                	<h:outputText value="Page 1 of 1" style="float: left;" />
+		                	<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_left_navigation.png" />
+		                	</h:commandLink>
+		                	<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_right_navigation.png" />
+		                	</h:commandLink>
+		                </div>
+	                </h:form>
+				</div>				
+				<!-- place profile box include -->
+				<ui:include src="/include/placeProfileBox.xhtml" />
+				<!-- place profile box include -->
+			</div>
+			<!-- user-home-row2 -->
+			<div id="user-home-row2">
+				<!-- comments box include -->
+				<ui:include src="/include/commentsBox.xhtml" />
+				<!-- comments box include -->
+				<div id="about-box" class="rounded-box">
+					<h:form id="about-form" styleClass="rounded-box-form">
+						<h:outputText value="#{bundle['about.box.title']}" styleClass="box-title" style="position:relative;top:-10px;" />
+						<div class="about-box-edit">
+							<a4j:commandLink value="" execute="@this" oncomplete="#{rich:component('update-about-info-pane')}.show()">
+								<h:graphicImage library="images" name="icon_edit.png" />
+							</a4j:commandLink>
+						</div>
+						<div class="about-box-content">
+							<p>
+								O On The Fly Bar é um tributo
+								ao rock e à cultura pop. Um 
+								bar para dançar e se divertir 
+								sem preconceitos.
+							</p> 
+							<p>
+								O cardápio trás opções, como
+								o clássico inglês Fish and 
+								Chips, English Pie, panquecas, 
+								espetos e sanduíches variados
+								para acompanhar. 
+							</p>
+							<p>
+								Sextas e sábados acontece a "Hang the
+								DJ" com pista de dança aberta,
+								som no máximo volume e a 
+								expectativa de casa cheia.
+								Todos os dias no Fly Pub, 
+								das 19h às 22h30: Fly-Hour 
+								com double de chopp, red label, 
+								vodkas e o Fly-Drink.
+							</p>
+							<p>
+								Todos os dias no Fly Pub, das 19h às 22h30: Fly-Hour com double de chopp, red label, vodkas e o Fly-Drink.
+								Horário de atendimento:
+								De quarta a sábado, a partir das 19h.
+								Capacidade:
+								100 pessoas sentadas.								
+							</p>							
+						</div>						
+						<div class="about-box-accepted-items" style="margin-top:50px;">
+							<h:outputText value="#{bundle['about.box.credit.cards']}" styleClass="about-box-accepted-items-title" />
+							<div>
+								<h:graphicImage library="images" name="icon_amex.png" />
+								<h:graphicImage library="images" name="icon_mastercard.png" />
+								<h:graphicImage library="images" name="icon_visa.png" />
+								<h:graphicImage library="images" name="icon_dinners.png" />
+							</div>
+						</div>
+						<div class="about-box-accepted-items">
+							<h:outputText value="#{bundle['about.box.debit.cards']}" styleClass="about-box-accepted-items-title" />
+							<div>
+								<h:graphicImage library="images" name="icon_amex.png" />
+								<h:graphicImage library="images" name="icon_mastercard.png" />
+								<h:graphicImage library="images" name="icon_visa.png" />
+								<h:graphicImage library="images" name="icon_dinners.png" />
+							</div>
+						</div>
+						<div class="about-box-accepted-items">
+							<h:outputText value="#{bundle['about.box.parking.and.map']}" styleClass="about-box-accepted-items-title" />
+							<div>
+								<h:graphicImage library="images" name="icon_parking.png" />
+								<h:graphicImage library="images" name="icon_map.png" />
+							</div>
+						</div>
+					</h:form>
+				</div>				
+				<!-- update about info popup -->
+				<rich:popupPanel id="update-about-info-pane" header="#{bundle['about.info.popup.header']}" domElementAttachment="parent" width="272" height="553">
+		            <h:form id="update-about-info-form">
+			            <div class="update-about-info-container">
+			            	<h:inputTextarea maxlength="3000" cols="44" rows="10" value="#{bundle['about.info.popup.about']}" />
+			            </div>
+			            <div class="update-about-info-container">
+			            	<h:outputText value="#{bundle['about.info.popup.accepted.credit.cards']}" styleClass="box-subtitle" />
+			            	<div>
+			            		<h:selectBooleanCheckbox value="amex" /> <h:outputText value="American Express"/>
+			            	</div>
+			            	<div>
+			            		<h:selectBooleanCheckbox value="mastercard" /> <h:outputText value="Mastercard"/>
+			            	</div>
+			            	<div>
+			            		<h:selectBooleanCheckbox value="visa" /> <h:outputText value="Visa"/>
+			            	</div>
+			            	<div>
+			            		<h:selectBooleanCheckbox value="dinners" /> <h:outputText value="Dinners"/>
+			            	</div>
+			            </div>
+			            <div class="update-about-info-container">
+			            	<h:outputText value="#{bundle['about.info.popup.accepted.debit.cards']}" styleClass="box-subtitle" />
+			            	<div>
+			            		<h:selectBooleanCheckbox value="amex" /> <h:outputText value="American Express"/>
+			            	</div>
+			            	<div>
+			            		<h:selectBooleanCheckbox value="mastercard" /> <h:outputText value="Mastercard"/>
+			            	</div>
+			            	<div>
+			            		<h:selectBooleanCheckbox value="visa" /> <h:outputText value="Visa"/>
+			            	</div>
+			            	<div>
+			            		<h:selectBooleanCheckbox value="dinners" /> <h:outputText value="Dinners"/>
+			            	</div>
+			            </div>
+			            <div class="update-about-info-container">
+			            	<h:outputText value="#{bundle['about.info.popup.parking.and.map']}" styleClass="box-subtitle" />
+			            	<div>
+			            		<h:selectBooleanCheckbox value="parking" /> <h:outputText value="#{bundle['about.info.popup.parking']}"/>
+			            	</div>
+			            	<div>
+			            		<h:selectBooleanCheckbox value="map" /> <h:outputText value="#{bundle['about.info.popup.map']}"/>
+			            	</div>
+			            </div>
+						<div class="button-container">
+							<h:commandButton value="#{bundle['about.info.popup.bt.update']}" action="#{userFriendsBean.doSomething}" style="float:left;" />
+						</div>
+					</h:form>
+    			</rich:popupPanel>
+    			<!-- update user info popup -->				
+				<!-- activities box include -->
+				<ui:include src="/include/activitiesBox.xhtml" />
+				<!-- activities box include -->
+				<script>
+					setDivBackgroundImage ("photos-frame-current-photo", "place_current_first_photo_album.jpg");
+					setDivZIndexById ("update-profile-info-pane_shade", "10000");
+					setDivZIndexById ("update-profile-background-image-pane_shade", "10000");
+					setDivZIndexById ("update-about-info-pane_shade", "10000");
+	            	setDivZIndexById ("update-profile-info-pane_container", "10001");
+	            	setDivZIndexById ("update-profile-background-image-pane_container", "10001");
+	            	setDivZIndexById ("update-about-info-pane_container", "10001");
+	            	setDivZIndexById ("update-profile-info-form:j_idt106List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt108List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt110List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt117List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt119List", "10002");
+	            </script>
+			</div>
+		</ui:define>
+	</ui:composition>
+</html>

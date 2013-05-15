@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions">	  
+	<ui:composition template="/layout/template.xhtml">
+		<ui:define name="body">
+			<!-- user-home-row1 -->
+			<div id="user-home-row1">
+				<!-- photos box include -->
+				<ui:include src="/include/photosBox.xhtml" />
+				<!-- photos box include -->
+				<!-- friends -->
+				<div id="friends-box" class="rounded-box">
+					<h:outputText value="#{bundle['friends.box.title']} (25)" styleClass="box-title" />
+					<h:form id="friends-form" styleClass="rounded-box-form">
+						<a4j:repeat value="#{userFriendsBean.friendList}" var="friend" rows="4" id="repeat">
+		                    <rich:panel style="float:left;">
+		                        <h:panelGroup>
+		                        	<h:commandLink value="" action="#{userFriendsBean.doSomething}" >
+		                        		<h:graphicImage value="#{friend.profileImagePath}" styleClass="user-img" />
+		                        	</h:commandLink>
+		                            <div class="user-item">
+		                            	<div class="user-item-link"><h:commandLink value="#{friend.username}" action="#{userFriendsBean.doSomething}" /></div>
+		                            	<div class="user-item-current-place">
+		                            		<h:outputText value="#{bundle['friends.box.is.in']}" style="margin-right: 3px" /><h:outputText value="#{friend.currentPlace.username}" />		
+		                            	</div>
+		                            </div>                            
+		                        </h:panelGroup>
+		                    </rich:panel>
+		                </a4j:repeat>
+		                <div class="navigation-bar">
+		                	<h:outputText value="1 of 1" style="float: left;" />
+		                	<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_left_navigation.png" />
+		                	</h:commandLink>
+		                	<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_right_navigation.png" />
+		                	</h:commandLink>
+		                </div>
+	                </h:form>
+				</div>				
+				<!-- user profile box include -->
+				<ui:include src="/include/userProfileBox.xhtml" />
+				<!-- user profile box include -->							
+			</div>
+			<!-- user-home-row2 -->
+			<div id="user-home-row2">
+				<!-- comments box include -->
+				<ui:include src="/include/commentsBox.xhtml" />
+				<!-- comments box include -->
+				<div id="recommendations-box" class="rounded-box">
+					<h:outputText value="#{bundle['recommendations.box.title']} (12)" styleClass="box-title" />
+					<h:form id="recommendations-form" styleClass="rounded-box-form">
+						<a4j:repeat value="#{userFriendsBean.recommendedPlaceList}" var="recommendedPlace" rows="12" id="repeat">
+		                    <rich:panel style="float:left;">
+		                        <h:panelGroup>
+		                        	<h:commandLink value="" action="#{userFriendsBean.doSomething}" >
+		                        		<h:graphicImage value="#{recommendedPlace.profileImagePath}" styleClass="user-img" />
+		                        	</h:commandLink>
+		                            <div class="user-item">
+		                            	<div class="user-item-link"><h:commandLink value="#{recommendedPlace.username}" action="#{userFriendsBean.doSomething}" /></div>
+		                            	<div class="user-item-full-info-bar">
+		                            		<div>
+		                            			<h:graphicImage library="images" name="icon_recommend.gif" /> <h:outputText value="#{recommendedPlace.numberRecommendations}" styleClass="user-item-feature-count" />
+		                            		</div>
+		                            		<div>
+		                            			<h:graphicImage library="images" name="icon_photo.gif" /> <h:outputText value="#{recommendedPlace.numberPhotos}" styleClass="user-item-feature-count" />
+		                            		</div>
+		                            	</div>
+		                            </div>		                            
+		                        </h:panelGroup>
+		                    </rich:panel>
+		                </a4j:repeat>
+		                <div class="navigation-bar">
+		                	<h:outputText value="1 of 1" style="float: left;" />
+		                	<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_left_navigation.png" />
+		                	</h:commandLink>
+		                	<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_right_navigation.png" />
+		                	</h:commandLink>
+		                </div>
+	                </h:form>
+				</div>
+				<!-- activities box include -->
+				<ui:include src="/include/activitiesBox.xhtml" />
+				<!-- activities box include -->
+				<script>									
+					setDivBackgroundImage ("photos-frame-current-photo", "user_current_first_photo_album.jpg");
+					setDivZIndexById ("update-profile-info-pane_shade", "10000");
+					setDivZIndexById ("update-profile-background-image-pane_shade", "10000");
+					setDivZIndexById ("update-profile-info-pane_container", "10001");
+					setDivZIndexById ("update-profile-background-image-pane_container", "10001");
+	            	setDivZIndexById ("update-profile-info-form:j_idt106List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt108List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt110List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt117List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt119List", "10002");
+	            </script>
+			</div>
+		</ui:define>
+	</ui:composition>
+</html>

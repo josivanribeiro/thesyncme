@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+    <ui:composition>
+		<div id="comments-box" class="rounded-box">
+			<h:outputText value="#{bundle['comments.box.title']} (5)" styleClass="box-title" />
+			<h:form id="comments-form" styleClass="rounded-box-form">
+				<a4j:repeat value="#{userFriendsBean.commentList}" var="comment" rows="4" id="repeat">
+                    <rich:panel style="float:left;">
+                        <h:panelGroup>
+                        	<h:commandLink value="" action="#{userFriendsBean.doSomething}" >
+                        		<h:graphicImage value="#{comment.toPlace.profileImagePath}" styleClass="user-img" />
+                        	</h:commandLink>
+                            <div class="user-item">
+                            	<div class="user-item-link"><h:commandLink value="#{comment.toPlace.username}" action="#{userFriendsBean.doSomething}" /></div>
+                            	<div class="user-item-full-info-bar">
+                            		<div>
+                            			<h:graphicImage library="images" name="icon_comment.gif" /> <h:outputText value="#{comment.toPlace.numberComments}" styleClass="user-item-feature-count" />
+                            		</div>
+                            		<div>
+	                            		<h:commandLink value="" action="#{userPlacesBean.doSomething}">
+	                            			<h:graphicImage library="images" name="icon_info.gif" />		                            			
+	                            		</h:commandLink>
+                            		</div>
+                            	</div>		                            			                            			                            	
+                            </div>
+                            <div class="user-item-comment-container">
+                           		<div class="user-item-comment-profile">
+                           			<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+                       					<h:graphicImage value="#{comment.fromUser.reducedProfileImagePath}" />
+                       				</h:commandLink>
+                       				<h:commandLink value="#{comment.fromUser.username}" action="#{userFriendsBean.doSomething}" styleClass="user-item-comment-username-link" />
+                           		</div>
+                      				<div class="user-item-comment">
+                      					<h:outputText value="#{comment.comment}" />
+                      				</div>
+                      				<h:outputText value="#{comment.creationDate}" styleClass="comment-item-creation">
+		        					<f:converter converterId="CustomDateTimeConverter" />
+		        				</h:outputText>                        				           					                        					                            	
+                           	</div>
+                        </h:panelGroup>
+                    </rich:panel>		                    
+                </a4j:repeat>
+                <div class="navigation-bar">
+                	<h:outputText value="1 of 1" style="float: left;" />
+                	<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+                		<h:graphicImage library="images" name="icon_left_navigation.png" />
+                	</h:commandLink>
+                	<h:commandLink value="" action="#{userFriendsBean.doSomething}">
+                		<h:graphicImage library="images" name="icon_right_navigation.png" />
+                	</h:commandLink>
+                </div>
+        	</h:form>
+		</div>
+	</ui:composition>
+</html>				

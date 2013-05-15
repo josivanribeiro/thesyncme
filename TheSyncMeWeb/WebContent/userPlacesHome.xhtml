@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions">	  
+	<ui:composition template="/layout/template.xhtml">
+		<ui:define name="body">
+			<!-- user-home-row1 -->
+			<div id="user-home-row1">
+				<!-- top places -->
+				<div id="top-places-box" class="rounded-box">
+					<h:outputText value="#{bundle['top.places.box.title']}" styleClass="box-title" />
+					<h:form id="top-places-form" styleClass="rounded-box-form">
+						<a4j:repeat value="#{userPlacesBean.topPlaceList}" var="topPlace" rows="4" id="repeat">
+		                    <rich:panel style="float:left;">
+		                        <h:panelGroup>
+		                        	<h:commandLink value="" action="#{userPlacesBean.doSomething}" >
+		                        		<h:graphicImage value="#{topPlace.profileImagePath}" styleClass="user-img" />
+		                        	</h:commandLink>
+		                            <div class="user-item">
+		                            	<div class="user-item-link"><h:commandLink value="#{topPlace.username}" action="#{userPlacesBean.doSomething}" /></div>
+		                            	<div><h:graphicImage library="images" name="progress_bar.gif" /></div>		                            	
+		                            </div>		                            
+		                        </h:panelGroup>
+		                    </rich:panel>		                    
+		                </a4j:repeat>
+		                <div class="navigation-bar">
+		                	<h:outputText value="Page 1 of 1" style="float: left;" />
+		                	<h:commandLink value="" action="#{userPlacesBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_left_navigation.png" />
+		                	</h:commandLink>
+		                	<h:commandLink value="" action="#{userPlacesBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_right_navigation.png" />
+		                	</h:commandLink>
+		                </div>
+	                </h:form>
+				</div>
+				<!-- places -->
+				<div id="places-box" class="rounded-box">
+					<h:outputText value="#{bundle['places.box.title']} (25)" styleClass="box-title" />
+					<h:form id="places-form" styleClass="rounded-box-form">
+						<a4j:repeat value="#{userPlacesBean.placeList}" var="place" rows="4" id="repeat">
+		                    <rich:panel style="float:left;">
+		                        <h:panelGroup>
+		                        	<h:commandLink value="" action="#{userPlacesBean.doSomething}" >
+		                        		<h:graphicImage value="#{place.profileImagePath}" styleClass="user-img" />
+		                        	</h:commandLink>
+		                            <div class="user-item">
+		                            	<div class="user-item-link"><h:commandLink value="#{place.username}" action="#{userPlacesBean.doSomething}" /></div>
+		                            	<div class="user-item-full-info-bar">
+		                            		<div>
+		                            			<h:graphicImage library="images" name="icon_recommend.gif" /> <h:outputText value="#{place.numberRecommendations}" styleClass="user-item-feature-count" />
+		                            		</div>
+		                            		<div>
+		                            			<h:graphicImage library="images" name="icon_comment.gif" /> <h:outputText value="#{place.numberComments}" styleClass="user-item-feature-count" />
+		                            		</div>		                            		
+		                            		<div>
+		                            			<h:graphicImage library="images" name="icon_photo.gif" /> <h:outputText value="#{place.numberPhotos}" styleClass="user-item-feature-count" />
+		                            		</div>
+		                            		<div>
+			                            		<h:commandLink value="" action="#{userPlacesBean.doSomething}">
+			                            			<h:graphicImage library="images" name="icon_info.gif" />			                            			
+			                            		</h:commandLink>
+		                            		</div>
+		                            	</div>
+		                            </div>                            
+		                        </h:panelGroup>
+		                    </rich:panel>
+		                </a4j:repeat>
+		                <div class="navigation-bar">
+		                	<h:outputText value="Page 1 of 1" style="float: left;" />
+		                	<h:commandLink value="" action="#{userPlacesBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_left_navigation.png" />
+		                	</h:commandLink>
+		                	<h:commandLink value="" action="#{userPlacesBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_right_navigation.png" />
+		                	</h:commandLink>
+		                </div>
+	                </h:form>
+				</div>
+				<!-- user profile box include -->
+				<ui:include src="/include/userProfileBox.xhtml" />
+				<!-- user profile box include -->
+			</div>
+			<!-- user-home-row2 -->
+			<div id="user-home-row2">
+				<div id="places-you-may-know-box" class="rounded-box">
+					<h:outputText value="#{bundle['places.you.may.know.box.title']}" styleClass="box-title" />
+					<h:form id="places-you-may-know-form" styleClass="rounded-box-form">
+						<a4j:repeat value="#{userPlacesBean.placeYouMayKnowList}" var="placeYouMayKnow" rows="12" id="repeat">
+		                    <rich:panel style="float:left;">
+		                        <h:panelGroup>
+		                        	<h:commandLink value="" action="#{userPlacesBean.doSomething}" >
+		                        		<h:graphicImage value="#{placeYouMayKnow.profileImagePath}" styleClass="user-img" />
+		                        	</h:commandLink>
+		                            <div class="user-item">
+		                            	<div class="user-item-link"><h:commandLink value="#{placeYouMayKnow.username}" action="#{userPlacesBean.doSomething}" /></div>
+		                            	<div class="user-item-info-bar">
+		                            		<h:commandLink value="" action="#{userPlacesBean.doSomething}" >
+		                            			<h:graphicImage library="images" name="icon_info.gif" />
+		                            		</h:commandLink>
+		                            		<h:commandLink value="" action="#{userPlacesBean.doSomething}" >
+		                            			<h:graphicImage library="images" name="icon_add.gif" />
+		                            		</h:commandLink>
+		                            	</div>		                            	
+		                            </div>		                            
+		                        </h:panelGroup>
+		                    </rich:panel>		                    
+		                </a4j:repeat>
+		                <div class="navigation-bar">
+		                	<h:outputText value="Page 1 of 1" style="float: left;" />
+		                	<h:commandLink value="" action="#{userPlacesBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_left_navigation.png" />
+		                	</h:commandLink>
+		                	<h:commandLink value="" action="#{userPlacesBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_right_navigation.png" />
+		                	</h:commandLink>
+		                </div>
+	                </h:form>
+				</div>
+				<div id="find-places-box" class="rounded-box">
+					<h:outputText value="#{bundle['find.places.box.title']}" styleClass="box-title" />
+					<!-- Search places -->
+					<h:form id="find-places-form" styleClass="rounded-box-form">						
+						<div class="field-container">
+							<rich:inplaceInput value="#{userPlacesBean.findPlacesPlaceName}" defaultLabel="#{bundle['find.places.place']}" style="width: 180px;" />
+						</div>
+						<div class="field-container">
+							<rich:inplaceInput value="#{userPlacesBean.findPlacesDistrictOrStreet}" defaultLabel="#{bundle['find.places.district.or.street']}" style="width: 180px;" />
+						</div>
+						<div class="field-container">
+							<rich:inplaceInput value="#{userPlacesBean.findPlacesCity}" defaultLabel="#{bundle['find.places.city']}" style="width: 90px;" />
+							<h:commandButton value="#{bundle['find.places.bt.search']}" action="#{userPlacesBean.doSomething}" />
+						</div>						
+					</h:form>
+					<!-- Search places result -->
+					<h:form id="places-result-form">
+						<a4j:repeat value="#{userPlacesBean.placeResultList}" var="placeResult" rows="4" id="repeat">
+		                    <rich:panel style="float:left;">
+		                        <h:panelGroup>
+		                        	<h:commandLink value="" action="#{userPlacesBean.doSomething}">
+		                        		<h:graphicImage value="#{placeResult.profileImagePath}" styleClass="user-img" />
+		                        	</h:commandLink>
+		                            <div class="user-item">
+		                            	<div class="user-item-link"><h:commandLink value="#{placeResult.username}" action="#{userPlacesBean.doSomething}" /></div>
+		                            	<div class="user-item-info-bar">
+		                            		<h:commandLink value="" action="#{userPlacesBean.doSomething}" >
+		                            			<h:graphicImage library="images" name="icon_info.gif" />
+		                            		</h:commandLink>
+		                            		<h:commandLink value="" action="#{userPlacesBean.doSomething}" >
+		                            			<h:graphicImage library="images" name="icon_add.gif" />
+		                            		</h:commandLink>
+		                            	</div>
+		                            </div>
+		                        </h:panelGroup>
+		                    </rich:panel>
+		            	</a4j:repeat>
+		            	<div class="navigation-bar" style="margin-top: 338px;">
+		                	<h:outputText value="Page 1 of 1" style="float: left;" />
+		                	<h:commandLink value="" action="#{userPlacesBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_left_navigation.png" />
+		                	</h:commandLink>
+		                	<h:commandLink value="" action="#{userPlacesBean.doSomething}">
+		                		<h:graphicImage library="images" name="icon_right_navigation.png" />
+		                	</h:commandLink>
+		                </div>		            	
+					</h:form>										
+				</div>
+				<!-- activities box include -->
+				<ui:include src="/include/activitiesBox.xhtml" />
+				<!-- activities box include -->				
+				<script>
+					setDivZIndexById ("update-profile-info-pane_shade", "10000");
+					setDivZIndexById ("update-profile-background-image-pane_shade", "10000");
+	            	setDivZIndexById ("update-profile-info-pane_container", "10001");
+	            	setDivZIndexById ("update-profile-background-image-pane_container", "10001");
+	            	setDivZIndexById ("update-profile-info-form:j_idt126List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt128List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt130List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt137List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt139List", "10002");
+	            	setDivZIndexById ("update-profile-info-form:j_idt141List", "10002");
+	            </script>
+			</div>
+		</ui:define>
+	</ui:composition>
+</html>

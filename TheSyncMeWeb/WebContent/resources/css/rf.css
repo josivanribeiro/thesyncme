@@ -1,0 +1,332 @@
+/*
+	File name: rf.css
+	Author: Josivan Ribeiro
+	Author URI: http://www.thesyncme.com
+	Description: CSS file used to customize the layout of some components from the RichFaces 4.1 JSF framework.
+	Version: 1.0
+*/
+
+.rf-ii-chng {
+    display: inline-block;
+}
+/* This class defines styles for the in-place input. */
+.rf-ii {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    font: 12px "Helvetica Neue",Arial,sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 4px 4px 4px 4px;
+    width: 262px;
+    height: 30px;
+    background: #fff;
+}
+.rf-ii-lbl {
+    position: absolute;
+    padding: 7px 5px 5px 5px;
+    color: #999;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 12px;
+    white-space: nowrap;
+}
+/* This class defines styles for the in-place input field. */ 
+input.rf-ii-fld {
+    background-color: #fff;
+    background-image: none;
+    border: 0 none;
+    color: #666;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 12px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+/* This class defines styles for the in-place input when it cannot be edited. */
+.rf-ii-none {
+    padding: 5px;      
+}
+.rf-ii-fld-cntr {
+    position: absolute;
+    display: inline-block;
+    left: 0;
+    top: 0;
+    /*width: 262px;*/
+    height: 27px;
+}
+/* This class defines styles for the default label of the in-place input. */
+.rf-ii-dflt-lbl {
+    /*color: #B3B3B3;*/
+}
+/* This class defines styles for the container of the select control. */
+.rf-sel-cntr {
+    background-color: #fff;
+    float: right;
+	font-size: 12px;
+	color: #999;
+	font-weight: bold;
+	border-radius: 4px 4px 4px 4px;
+	height: 30px;
+    border: 1px solid #ccc;    
+    outline: medium none;
+    width: 268px;
+}
+/* This class defines styles for the default label of the select control. */
+input.rf-sel-dflt-lbl {
+    color: #666;
+}
+input.rf-sel-inp {
+    float: left;
+    font-size: 12px;
+	color: #999;
+    border-radius: 4px 4px 4px 4px;
+    background-color: #fff;
+    background-image: none;
+    margin: 0;
+    padding-left: 7px;
+    vertical-align: top;
+    width: 245px;
+    height: 30px;    
+}
+/* This class defines styles for the button of the select control. */
+.rf-sel-btn {
+   height: 30px;
+   background-color: #fff;
+   background-image: none;
+   border-left: 1px solid #ccc;
+   display: inline-block;
+   vertical-align: top;
+}
+/* This class defines styles for the arrow on the button. */
+.rf-sel-btn-arrow {
+   float: right;
+   background-image: url("/thesyncme/rfRes/comboDownButton.png.page?v=4.1.0.20110805-M1&db=eAH7z8DAAAAEAAEA&ln=org.richfaces.images");
+   background-position: center center;
+   background-repeat: no-repeat;
+   cursor: pointer;
+   display: inline-block;
+   height: 30px;
+   width: 15px;  
+}
+/* This class define the style of the select control shadows. */
+.rf-sel-shdw-b {
+    
+}
+/* This class defines styles for the select control shadow. */
+.rf-sel-shdw {
+    border: 0 solid red;
+    display: inline-block;
+    float: left;
+    left: -7px;
+    padding: 6px;
+    position: absolute;
+    top: -6px;    
+}
+.rf-sel-lst-dcrtn {
+    background-color: #FFFFFF;
+    border-color: #C4C0B9;
+    border-style: solid;
+    border-width: 1px;
+    padding: 0;
+}
+/* This class defines styles for the selected option of the select control. */
+.rf-sel-sel {
+    background-color: #f5f5f5;
+    border-color: #fff;
+    border-style: dotted;
+    border-width: 1px;
+    padding: 1px;
+    width: 100%;
+}
+/* This class defines styles for an option in the select control. */
+.rf-sel-opt {
+    cursor: default;
+    list-style-type: none;
+    padding: 2px;
+    white-space: nowrap;
+}
+/* These classes defines styles for the select control input field. */
+.rf-sel-inp, .rf-sel-opt {
+    color: #666;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 12px;
+}
+input[type="password"] {
+    float: left;
+    background-image: none;
+    background-color: #fff;
+    font-size: 12px;
+	padding-left: 5px;
+	color: #999;
+	border: 1px solid #ccc;
+	border-radius: 4px 4px 4px 4px;	    
+    width: 173px;
+    height: 28px;
+}
+/* This class defines styles for the message itself. */
+.rf-msg, .rf-msgs {
+	/*padding: 10px;
+	border-radius: 10px 10px 10px 10px;
+	margin-bottom: 20px;
+	display: none;
+	font-family: Arial,Verdana,sans-serif;
+    font-size: 12px;
+    width: 250px;
+    height: auto;*/    
+}
+.rf-msg-err, .rf-msgs-err {    
+    background-color: #ffebe8;
+	margin: 10px 0;
+    border: 1px solid #FF0000;
+    border-radius: 4px 4px 4px 4px;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 12px;
+    width: 246px;
+    height: 30px;
+	background-image: none;
+    color: #FF0000;
+}
+/* These classes defines styles for the error and information messages. */
+.rf-msg-inf, .rf-msgs-inf {    
+    background-image: none;
+    color: #0099FF;
+}
+/* These classes define styles for the details of a message. */
+.rf-msg-det, .rf-msgs-det {
+    position: relative;
+	top: 7px;
+	left: -12px;
+    display: inline;
+}
+select {
+    height: 20px !important;
+    width: 188px;
+    background-image: none;
+    background-color: #fff;
+    font-size: 12px;
+	color: #999;
+	border: 1px solid #ccc;
+	border-radius: 4px 4px 4px 4px;	      
+}
+.rf-pp-cntr {
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding: 10px;
+	border: 1px solid #ccc;    
+    border-radius: 10px 10px 10px 10px;
+    z-index: -1;
+}
+.rf-pp-cnt {
+    color: #000000;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 11px;
+    /*padding: 10px;*/
+}
+.rf-pp-hdr-cnt {
+    color: #666666;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    padding: 2px 2px 2px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.rf-pp-hdr {
+    background: none;
+    cursor: move;
+    padding: 2px;
+    position: relative;
+}
+.rf-pp-shdw {
+    background-color: #FFFFFF;
+    bottom: -6px;
+    left: 6px;
+    opacity: 0.1;
+    position: absolute;
+    top: 6px;
+    z-index: -1;
+}
+.rf-pp-shade {
+    background-color: #000000;
+    height: 10000px;
+    left: 0;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    width: 10000px;    
+}
+.rf-au {
+    float: left;
+    background-image: none;
+    display: inline-block;
+    height: 30px !important;
+    width: 250px;
+    background-image: none;
+    background-color: #fff;
+    font-size: 12px;
+	color: #999;
+	border: 1px solid #ccc;
+	border-radius: 4px 4px 4px 4px;    
+}
+input.rf-au-inp {
+    color: #666666;
+    font-size: 12px;
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 0 none;
+    margin-left: 5px;
+    padding: 0;
+    vertical-align: top;
+    width: 242px;
+    height: 30px;
+}
+.rf-au-opt {
+    list-style-type: none;
+    white-space: nowrap;
+}
+.rf-au-itm {
+    cursor: default;
+    padding: 2px;
+}
+.rf-au-fnt {
+    color: #666666;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 11px;
+}
+.rf-au-lst-dcrtn {
+    background-color: #FFFFFF;
+    border: 1px solid #CCC;
+    padding: 0;
+}
+.rf-au-shdw {
+    border: 0 solid #CCC;
+    display: inline-block;
+    float: left;
+    left: -7px;
+    padding: 6px;
+    position: absolute;
+    top: -6px;
+}
+.rf-au-lst-scrl {
+    background-color: #FFFFFF;
+    max-height: 100px;
+    min-height: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 243px;
+}
+.rf-p {
+    background-color: #F5F5F5;
+    color: #C4C0B9;
+    padding: 0px;
+    border-style: none;
+}
+.rf-p-b {
+    color: #12a0ff;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 12px;
+    padding: 0px;
+    width: 186px;
+    height: 48px;
+    margin-bottom: 10px;
+}
